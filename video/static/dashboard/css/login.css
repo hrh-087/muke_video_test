@@ -1,0 +1,9 @@
+.edit-area{
+    width: 50%;
+    margin: 10% auto;
+    border:1px solid #000000;
+    padding: 5%;
+}
+.center{
+    text-align: center;
+}
