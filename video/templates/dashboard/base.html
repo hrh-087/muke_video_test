@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>${self.title()}</title>
-        <link type="text/css" href="/static/dashboard/css/dashboard.css" rel="stylesheet">
-<!--    <link type="text/css" href="/static/dashboard/css/bootstrap.min.css" rel="stylesheet">-->
+    <link type="text/css" href="/static/dashboard/css/dashboard.css" rel="stylesheet">
+    <!--    <link type="text/css" href="/static/dashboard/css/bootstrap.min.css" rel="stylesheet">-->
     <!--    <script type="text/javascript" src="/static/dashboard/js/jquery-1.8.43.min.js"></script>-->
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,8 @@ from django.shortcuts import reverse
     <ul class="side-menu">
         <li><a href="${reverse('admin_manger')}">管理员</a></li>
         <li>用户</li>
-        <li>视频</li>
+        <li><a href="${reverse('video_externa')}">外链视频</a></li>
+        <li><a href="">自制视频</a></li>
     </ul>
     <div class="base-content">
         ${self.content()}
