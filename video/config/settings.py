@@ -77,7 +77,7 @@ DATABASES = {
         'NAME': 'muke_video',
         'USER': 'huruihao',
         'PASSWORD': 'root',
-        'HOST': '192.168.193.128',
+        'HOST': '192.168.238.131',
         'PORT': 3306
     }
 }
