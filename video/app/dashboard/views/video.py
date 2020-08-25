@@ -8,7 +8,7 @@ from app.model.video import (Video, VideoStar, VideoSub,
                              VideoType, FromType,
                              IdentityType,
                              NationalityType)
-from app.utils.common import check_and_get_video_type
+from app.utils.common import check_and_get_video_type, handle_video
 
 
 class ExternaVideo(View):
@@ -19,8 +19,10 @@ class ExternaVideo(View):
         error = request.GET.get('error', '')
         data = {'error': error}
 
-        video = Video.objects.exclude(from_to=FromType.custom.value)
-        data['videos'] = video
+        cus_videos = Video.objects.filter(from_to=FromType.custom.value)
+        ex_videos = Video.objects.exclude(from_to=FromType.custom.value)
+        data['videos'] = ex_videos
+        data['cus_video'] = cus_videos
         return render_to_response(request, self.TEMPLATE, data=data)
 
     def post(self, request):
@@ -35,7 +37,7 @@ class ExternaVideo(View):
         if video_id:
             reverse_path = reverse('video_update', kwargs={'video_id': video_id})
         else:
-            reverse_path = reverse('video_externa', kwargs={'video_id': video_id})
+            reverse_path = reverse('video_externa')
 
         if not all([name, image, video_type, from_to, nationality, description]):
             return redirect('{}?error={}'.format(
@@ -107,17 +109,23 @@ class VideoSubView(View):
         return render_to_response(request, self.TEMPLATE, data)
 
     def post(self, request, video_id):
-        url = request.POST.get('url')
         number = request.POST.get('number')
         videosub_id = request.POST.get('videosub_id')
+        video = Video.objects.get(pk=video_id)
+
+        if FromType(video.from_to) == FromType.custom:
+            url = request.FILES.get('url')
+        else:
+            url = request.POST.get('url')
 
         url_format = reverse('video_sub', kwargs={'video_id': video_id})
 
         if not all([url, number]):
             return redirect('{}?error={}'.format(url_format, '缺少必要字段'))
 
-        video = Video.objects.get(pk=video_id)
-
+        if FromType(video.from_to) == FromType.custom:
+            handle_video(url,video_id,number)
+            return redirect(reverse('video_sub', kwargs={'video_id': video_id}))
         if not videosub_id:
             try:
                 VideoSub.objects.create(video=video, url=url, number=number)
@@ -185,17 +193,16 @@ class VideoUpdate(View):
 
     @dashboard_auth
     def get(self, request, video_id):
-
         data = {}
         video = Video.objects.get(pk=video_id)
 
         data['video'] = video
         return render_to_response(request, self.TEMPLATE, data)
 
+
 class VideoUpdateStatus(View):
 
-    def get(self,request,video_id):
-
+    def get(self, request, video_id):
         video = Video.objects.get(pk=video_id)
         video.status = not video.status
 
