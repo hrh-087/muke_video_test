@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'djcelery',
 ]
+
+BROKER_URL = 'redis://192.168.238.131:55555/2'
+CELERY_RESULT_BACKEND = 'redis://192.168.238.131:55555/3'
+CELERY_IMPORTS = ('app.tasks.task')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +85,7 @@ DATABASES = {
         'NAME': 'muke_video',
         'USER': 'huruihao',
         'PASSWORD': 'root',
-        'HOST': '192.168.193.128',
+        'HOST': '192.168.238.131',
         'PORT': 3306
     }
 }
@@ -121,7 +129,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-#qiniu
-QINIU_AK = ''
-QINIU_SK = ''
-QINIU_VIDEO = ''
+# qiniu
+QINIU_AK = 'owinD6Q2P9v4qaqTr8h1AlCPlyjNy50m_hSY90sY'
+QINIU_SK = '7gHpyjZ5T6-2rI2t2Kzm_3LNj6NAiwGNS1-bjELD'
+QINIU_VIDEO = 'huruihao'
+QINIU_VIDEO_URL = 'http://qfm7wmc17.hn-bkt.clouddn.com'

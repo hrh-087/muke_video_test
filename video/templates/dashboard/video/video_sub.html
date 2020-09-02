@@ -5,6 +5,8 @@ from app.model.video import IdentityType,FromType
 %>
 <%def name="content()">
 <h1 class="h1">${video.name}${error}</h1>
+
+
 % if FromType(video.from_to) == FromType.custom:
 <form enctype="multipart/form-data" class="form-horizontal edit-area add-video-area add-url" method="POST">
 % else:
@@ -53,7 +55,12 @@ from app.model.video import IdentityType,FromType
     % for video_sub in video.video_sub.all():
     <tr>
         <td>第${video_sub.number}集</td>
-        <td><p class="info">${video_sub.url}</p></td>
+        % if FromType(video.from_to) == FromType.custom:
+        <td><p class="info"> ${video_sub.url or '处理中...'}</p></td>
+        % else:
+        <td><p class="info"> ${video_sub.url}</p></td>
+        % endif
+
         <td><a href="${video_sub.url}" class="btn btn-default">查看</a>
             <button  class="btn btn-default update-btn" data-id="${video_sub.id}" data-url="${video_sub.url}" data-number="${video_sub.number}">编辑</button>
             <a href="${reverse('sub_delete',kwargs={'sub_id':video_sub.id,'video_id':video.id})}" class="btn btn-default">删除</a>
