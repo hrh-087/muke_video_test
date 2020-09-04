@@ -1,0 +1,26 @@
+.video-image{
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.span{
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: 0.2rem;
+}
+
+.info{
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.number-ol{
+    margin-bottom: 3rem;
+}
+
+.number-ol li{
+    display: inline-block;
+}

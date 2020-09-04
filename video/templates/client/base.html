@@ -5,6 +5,12 @@
     <title>${self.title()}</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no">
     <link href="/static/client/css/base.css" rel="stylesheet">
+     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     ${self.css()}
 </head>
 <body>
@@ -16,8 +22,8 @@
 <footer class="footer">
     <ul>
         <li><a href="${reverse('client_ex_video')}">外链</a></li>
-        <li><a href="">内链</a></li>
-        <<li><a href="">我的</a></li>
+        <li><a href="${reverse('client_video_custom')}">内链</a></li>
+        <li><a href="${reverse('client_auth')}">我的</a></li>
     </ul>
 </footer>
 </body>

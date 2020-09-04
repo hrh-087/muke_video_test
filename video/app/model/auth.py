@@ -1,6 +1,7 @@
 # coding:utf-8
 
 import hashlib
+import datetime
 
 from django.db import models
 
@@ -16,7 +17,7 @@ class ClientUser(models.Model):
     password = models.CharField(max_length=128, null=False)
     avatar = models.CharField(max_length=256, default='')
     gender = models.CharField(max_length=10, default='')
-    birthday = models.DateTimeField(null=True, blank=True, default=None)
+    birthday = models.DateTimeField(null=True, blank=True, default=True)
     status = models.BooleanField(default=True, db_index=True)
     create_time = models.DateTimeField(auto_now_add=True)
 
@@ -24,7 +25,7 @@ class ClientUser(models.Model):
         return 'username:{}'.format(self.username)
 
     @classmethod
-    def add(cls, username, password, avatar='', gender='', birthday=''):
+    def add(cls, username, password, avatar='', gender='', birthday=datetime.date(1900, 1, 1)):
         return cls.objects.create(
             username=username,
             password=hash_password(password),

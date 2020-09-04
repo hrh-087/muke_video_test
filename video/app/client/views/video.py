@@ -18,8 +18,18 @@ class ExVideo(View):
         return render_to_response(request, self.TEMPLATE, data)
 
 
+class CusVideo(View):
+    TEMPLATE = 'client/video/video.html'
+
+    def get(self, request):
+        videos = Video.objects.filter(from_to=FromType.custom.value)
+
+        data = {'videos': videos}
+
+        return render_to_response(request, self.TEMPLATE, data)
+
 class VideoSubView(View):
-    TEMPLATE = 'client/video/videosub.html'
+    TEMPLATE = 'client/video/video_sub.html'
 
     def get(self, request, video_id):
         video = get_object_or_404(Video, pk=video_id)

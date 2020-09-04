@@ -2,14 +2,16 @@
     width: 50%;
     height: 12rem;
     float:left;
-    margin-bottom: 0.1rem;
+    margin-bottom: 2rem;
 }
 
 .video-name{
     width: 100%;
     height: 10rem;
 }
-
+.video-image{
+    height: 100%;
+}
 .video-name{
     font-size: 1.2rem;
     font-weight: bold;
