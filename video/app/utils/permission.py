@@ -22,12 +22,9 @@ def dashboard_auth(func):
 
 def client_auth(request):
     value = request.COOKIES.get(COOKIE_NAME)
-    print(value)
     if not value:
         return
-
     user = ClientUser.objects.filter(pk=value)
-    print(user)
     if user:
         return user[0]
     else:

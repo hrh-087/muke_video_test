@@ -10,6 +10,7 @@ from .views.video import (
     VideoUpdateStatus
 )
 
+
 urlpatterns = [
     path('', Index.as_view(), name='dashboard_index'),
     path('login/', Login.as_view(), name='login'),
@@ -24,5 +25,5 @@ urlpatterns = [
     path('video/star/delete/<int:star_id>/<int:video_id>', StarDelete.as_view(), name='star_delete'),
     path('video/sub/delete/<int:sub_id>/<int:video_id>', SubDelete.as_view(), name='sub_delete'),
     path('video/update/<int:video_id>', VideoUpdate.as_view(), name='video_update'),
-path('video/update/status/<int:video_id>', VideoUpdateStatus.as_view(), name='video_update_status'),
+    path('video/update/status/<int:video_id>', VideoUpdateStatus.as_view(), name='video_update_status'),
 ]

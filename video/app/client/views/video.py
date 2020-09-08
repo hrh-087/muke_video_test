@@ -5,6 +5,7 @@ from django.shortcuts import redirect, reverse, get_object_or_404
 
 from app.libs.base_render import render_to_response
 from app.model.video import Video, FromType
+from app.utils.permission import client_auth
 
 
 class ExVideo(View):
@@ -28,11 +29,13 @@ class CusVideo(View):
 
         return render_to_response(request, self.TEMPLATE, data)
 
+
 class VideoSubView(View):
     TEMPLATE = 'client/video/video_sub.html'
 
     def get(self, request, video_id):
         video = get_object_or_404(Video, pk=video_id)
-        data = {'video': video}
-
+        user = client_auth(request)
+        data = {'video': video, 'user': user}
+        print(data)
         return render_to_response(request, self.TEMPLATE, data=data)
