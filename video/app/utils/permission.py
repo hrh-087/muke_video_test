@@ -25,7 +25,7 @@ def client_auth(request):
     if not value:
         return
     user = ClientUser.objects.filter(pk=value)
-    if user:
+    if user or user.status:
         return user[0]
     else:
         return None

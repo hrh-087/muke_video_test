@@ -59,8 +59,7 @@ class ClientUser(models.Model):
 
         return True
 
-    def update_statuus(self):
+    def update_status(self):
         self.status = not self.status
-
         self.save()
         return True

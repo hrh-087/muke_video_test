@@ -1,0 +1,47 @@
+dashboard_client_user
+
+<%inherit file="../base.html" />
+<%!
+from django.shortcuts import reverse
+%>
+<%def name="content()">
+<h1 class="h1">用户模块</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>用户名</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>控制</th>
+    </tr>
+
+    <tbody>
+    % for user in users:
+    <tr>
+        <td>${user.username}</td>
+        <td>${user.status}</td>
+        <td>${user.create_time}</td>
+        <td>
+            % if user.status:
+            <button data-user-id="${user.id}" data-url="${reverse('dashboard_client_user')}" class="user-status-submit">
+                冻结
+            </button>
+            % else:
+            <button data-user-id="${user.id}" data-url="${reverse('dashboard_client_user')}" class="user-status-submit">
+                恢复
+            </button>
+            % endif
+            ${csrf_token}
+        </td>
+    </tr>
+    %endfor
+
+    </tbody>
+    </thead>
+</table>
+</%def>
+
+
+<%def name="js()">
+<script src="/static/dashboard/js/video/user.js" rel="stylesheet"></script>
+</%def>

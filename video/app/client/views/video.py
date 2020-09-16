@@ -5,6 +5,7 @@ from django.shortcuts import redirect, reverse, get_object_or_404
 
 from app.libs.base_render import render_to_response
 from app.model.video import Video, FromType
+from app.model.comment import Comment
 from app.utils.permission import client_auth
 
 
@@ -36,6 +37,7 @@ class VideoSubView(View):
     def get(self, request, video_id):
         video = get_object_or_404(Video, pk=video_id)
         user = client_auth(request)
-        data = {'video': video, 'user': user}
-        print(data)
+        comments = Comment.objects.filter(video=video, status=True).order_by('-id')
+
+        data = {'video': video, 'user': user, 'comments': comments}
         return render_to_response(request, self.TEMPLATE, data=data)

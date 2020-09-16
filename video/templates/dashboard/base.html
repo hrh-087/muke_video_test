@@ -27,9 +27,8 @@ from django.shortcuts import reverse
 <div id="base-area">
     <ul class="side-menu">
         <li><a href="${reverse('admin_manger')}">管理员</a></li>
-        <li>用户</li>
-        <li><a href="${reverse('video_externa')}">外链视频</a></li>
-        <li><a href="">自制视频</a></li>
+        <li><a href="${reverse('dashboard_client_user')}">用户</a></li>
+        <li><a href="${reverse('video_externa')}">视频</a></li>
     </ul>
     <div class="base-content">
         ${self.content()}

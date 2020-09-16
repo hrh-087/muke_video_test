@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'djcelery',
 ]
 
-BROKER_URL = 'redis://192.168.193.128:55555/2'
-CELERY_RESULT_BACKEND = 'redis://192.168.193.128:55555/3'
+BROKER_URL = 'redis://192.168.238.131:55555/2'
+CELERY_RESULT_BACKEND = 'redis://192.168.238.131:55555/3'
 CELERY_IMPORTS = ('app.tasks.task')
 
 MIDDLEWARE = [
@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'muke_video',
         'USER': 'huruihao',
         'PASSWORD': 'root',
-        'HOST': '192.168.193.128',
+        'HOST': '192.168.238.131',
         'PORT': 3306
     }
 }

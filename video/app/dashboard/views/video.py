@@ -8,6 +8,7 @@ from app.model.video import (Video, VideoStar, VideoSub,
                              VideoType, FromType,
                              IdentityType,
                              NationalityType)
+from  app.model.comment import Comment
 from app.utils.common import check_and_get_video_type, handle_video
 
 
@@ -103,9 +104,11 @@ class VideoSubView(View):
         data = {}
         video = Video.objects.get(pk=video_id)
         error = request.GET.get('error', '')
+        comments = Comment.objects.filter(video=video).order_by('-id')
 
         data['error'] = error
         data['video'] = video
+        data['comments'] = comments
         return render_to_response(request, self.TEMPLATE, data)
 
     def post(self, request, video_id):
